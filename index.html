@@ -6,133 +6,130 @@
     <title>Fade Rules Hub</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        :root { --primary: #0095f6; --dark: #000000; --card: rgba(28, 28, 30, 0.8); --accent: #ffba08; }
+        :root { --primary: #0095f6; --dark: #000; --card: rgba(28, 28, 30, 0.95); --accent: #ffba08; }
+        body { font-family: -apple-system, sans-serif; background: var(--dark); color: white; margin: 0; padding: 15px; overflow: hidden; height: 100vh; }
         
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
-            background: var(--dark); 
-            color: white; 
-            margin: 0; 
-            padding: 15px; 
-            overflow-x: hidden;
-            height: 100vh;
-        }
-
-        /* Snow Animation Background */
-        #snow-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .snowflake {
-            position: absolute;
-            top: -10px;
-            color: white;
-            font-size: 1em;
-            user-select: none;
-            z-index: -1;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(105vh); }
-        }
+        /* Snow Effect */
+        #snow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .flake { position: absolute; top: -10px; color: #fff; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(105vh); } }
 
         /* Content Styling */
-        .header { text-align: center; padding: 30px 0; }
-        .header h1 { font-size: 2.5rem; letter-spacing: 5px; margin: 0; text-transform: uppercase; color: #fff; text-shadow: 0 0 10px var(--primary); }
+        .header { text-align: center; padding: 30px 0; position: relative; z-index: 10; }
+        .header h1 { font-size: 2.2rem; letter-spacing: 4px; text-shadow: 0 0 15px var(--primary); margin: 0; }
         
-        .main-menu { display: grid; gap: 15px; position: relative; z-index: 10; }
-        .btn { 
-            background: var(--card); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            backdrop-filter: blur(5px);
-            color: white; 
-            padding: 18px; 
-            border-radius: 15px; 
-            text-align: left; 
-            font-weight: bold; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            transition: 0.3s; 
-        }
-        .btn:active { transform: scale(0.95); background: var(--primary); }
-        .btn-num { margin-right: 15px; color: var(--primary); font-size: 1.2rem; }
+        .main-menu { display: grid; gap: 12px; position: relative; z-index: 10; }
+        .btn { background: var(--card); border: 1px solid #333; backdrop-filter: blur(10px); color: white; padding: 18px; border-radius: 15px; text-align: left; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn:active { transform: scale(0.96); background: var(--primary); }
 
-        .page { display: none; background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid #333; backdrop-filter: blur(10px); }
-        .back-btn { background: none; border: 1px solid var(--primary); color: var(--primary); padding: 8px 15px; border-radius: 8px; margin-bottom: 20px; cursor: pointer; }
-        
-        .copy-box { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; border: 1px dashed #555; font-size: 0.85rem; color: #ddd; margin: 15px 0; white-space: pre-wrap; }
-        .action-btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; }
+        /* Page Layout */
+        .page { display: none; background: var(--card); padding: 20px; border-radius: 20px; z-index: 20; position: relative; height: 85vh; overflow-y: auto; border: 1px solid #444; }
+        .back-btn { background: none; border: 1px solid var(--primary); color: var(--primary); padding: 6px 15px; border-radius: 8px; margin-bottom: 15px; cursor: pointer; }
+        .copy-box { background: #000; padding: 15px; border-radius: 10px; border: 1px dashed #555; font-size: 0.8rem; color: #ccc; margin: 15px 0; white-space: pre-wrap; }
+        .action-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; }
+        .note { color: var(--accent); font-size: 0.85rem; background: rgba(255, 186, 8, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; }
+        li { margin-bottom: 10px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-<div id="snow-container"></div>
+<div id="snow"></div>
 
-<div class="header">
-    <h1>FADE RULES</h1>
+<div id="mainContent">
+    <div class="header"><h1>FADE RULES</h1></div>
+    <div id="mainMenu" class="main-menu">
+        <div class="btn" onclick="showP('p1')">1. Meta Verified ❯</div>
+        <div class="btn" onclick="showP('p2')">2. Suspended IG Unban ❯</div>
+        <div class="btn" onclick="showP('p3')">3. Disabled IG Unban ❯</div>
+        <div class="btn" onclick="showP('p4')">4. Face Swap Tool ❯</div>
+        <div class="btn" onclick="showP('p5')">5. Developer ❯</div>
+        <button onclick="Telegram.WebApp.close()" style="background:none; border:none; color:#444; margin-top:10px;">Exit Hub</button>
+    </div>
 </div>
 
-<div id="mainMenu" class="main-menu">
-    <div class="btn" onclick="showPage('p1')"><span class="btn-num">01</span> Meta Verified ❯</div>
-    <div class="btn" onclick="showPage('p2')"><span class="btn-num">02</span> Suspended IG ❯</div>
-    <div class="btn" onclick="showPage('p3')"><span class="btn-num">03</span> Disabled IG ❯</div>
-    <div class="btn" onclick="showPage('p4')"><span class="btn-num">04</span> Face Swap ❯</div>
-    <div class="btn" onclick="showPage('p5')"><span class="btn-num">05</span> Developer ❯</div>
+<div id="p1" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Meta Verified</h2>
+    <ul>
+        <li><b>How to Purchase:</b> Go to Settings > Accounts Center > Meta Verified.</li>
+        <li><b>Offer:</b> Look for the 45₹ / 1-2 week trial offers.</li>
+        <li><b>Auto-Pay:</b> After buying, go to Play Store Subscriptions and turn OFF auto-pay immediately.</li>
+        <li><b>ID Proof:</b> Only upload a clear National ID (Aadhar Card).</li>
+    </ul>
 </div>
 
 <div id="p2" class="page">
     <button class="back-btn" onclick="goHome()">❮ Back</button>
     <h2>Suspended Unban</h2>
-    <p>Send mail to: support@instagram.com</p>
-    <div class="copy-box" id="mailTxt">Hello Instagram Support Team,
-My account has been suspended/disabled by mistake. I request a review. I follow all guidelines.
-Username: (account username)
-Email: (Your mail id)
+    <p>1. Send mail to support@instagram.com and appeals@instagram.com</p>
+    <p><b>Subject:</b> Request to Review and Recover My Disabled Instagram Account</p>
+    <div class="copy-box" id="m2">Hello Instagram Support Team,
+My account has been suspended/disabled by mistake. I believe this action was taken incorrectly. I have never violated guidelines. I request you to review and restore it.
+Account Username: (account username)
+Registered Email: (Your mail id)
 Regards, (Your name)</div>
-    <button class="action-btn" onclick="copyMail()">COPY MAIL TEXT</button>
-    <p style="color:var(--accent); font-size:0.8rem; margin-top:15px;">Note: Your account will unban in 48 hours. Upload Aadhar Card in appeals.</p>
+    <button class="action-btn" onclick="copy('m2')">COPY EMAIL TEXT</button>
+    <div class="note">Note: Upload Aadhar Card in appeals. Only for Bypass rule and Bot reason.</div>
+    <p>✅ Status: Unban in 48 hours.</p>
+</div>
+
+<div id="p3" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Disabled Unban</h2>
+    <p>Follow the same mail steps as the Suspended method.</p>
+    <div class="note"><b>Special Tip:</b> Use the "Chat with Agent" method in Meta Verified to talk to a human for faster recovery.</div>
+    <div class="note">Note: Do NOT upload proof in the appeal session for this method.</div>
+    <p>✅ Status: Unban within 24 hours.</p>
+</div>
+
+<div id="p4" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Face Swap Tool</h2>
+    <p>1. Search Google for: <b>aifaceswap.io</b></p>
+    <p>2. Upload your main image.</p>
+    <p>3. Upload the face image.</p>
+    <p>4. Swap and Download.</p>
+</div>
+
+<div id="p5" class="page" style="text-align:center;">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Developer: Lord Fade</h2>
+    <p>Follow for updates:</p>
+    <p>📈 IG: @sabi.creations_</p>
+    <p>📈 IG: @3ld.fx</p>
 </div>
 
 <script>
     Telegram.WebApp.ready();
     Telegram.WebApp.expand();
 
-    // Snow Animation Logic
-    function createSnow() {
-        const container = document.getElementById('snow-container');
-        const flake = document.createElement('div');
-        flake.innerHTML = '❄';
-        flake.classList.add('snowflake');
-        flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.animationDuration = Math.random() * 3 + 2 + 's';
-        flake.style.opacity = Math.random();
-        flake.style.fontSize = Math.random() * 10 + 10 + 'px';
-        
-        container.appendChild(flake);
-        setTimeout(() => { flake.remove(); }, 5000);
+    function createFlake() {
+        const f = document.createElement('div');
+        f.innerHTML = '❄'; f.className = 'flake';
+        f.style.left = Math.random() * 100 + 'vw';
+        f.style.animationDuration = Math.random() * 3 + 2 + 's';
+        f.style.opacity = Math.random();
+        f.style.fontSize = Math.random() * 10 + 10 + 'px';
+        document.getElementById('snow').appendChild(f);
+        setTimeout(() => f.remove(), 5000);
     }
-    setInterval(createSnow, 100);
+    setInterval(createFlake, 100);
 
-    function showPage(id) {
-        document.getElementById('mainMenu').style.display = 'none';
+    function showP(id) {
+        document.getElementById('mainContent').style.display = 'none';
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
     }
     function goHome() {
-        document.getElementById('p2').style.display = 'none'; // Repeat for all pages
-        document.getElementById('mainMenu').style.display = 'grid';
+        document.getElementById('mainContent').style.display = 'block';
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(p => p.style.display = 'none');
     }
-    function copyMail() {
-        const text = document.getElementById('mailTxt').innerText;
+    function copy(id) {
+        const text = document.getElementById(id).innerText;
         navigator.clipboard.writeText(text);
-        alert("Email Copied!");
+        alert("Text Copied!");
     }
 </script>
 </body>
