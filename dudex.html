@@ -1,1 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUDES WORLD</title>
+    <style>
+        :root {
+            --primary-red: #ff0000;
+            --neon-green: #39ff14;
+            --dark-bg: #0a0a0a;
+            --text-white: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Snowfall Background --- */
+        #snow-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .active { display: flex; }
+
+        /* --- Main Interface --- */
+        h1.main-title {
+            font-size: 4rem;
+            color: var(--primary-red);
+            text-shadow: 2px 2px 10px #000, 0 0 20px var(--primary-red);
+            text-transform: uppercase;
+            margin-bottom: 50px;
+        }
+
+        .btn-era {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px var(--neon-green);
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        .btn-era:hover {
+            background: var(--neon-green);
+            color: black;
+        }
+
+        /* --- Menu Buttons --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .menu-btn {
+            padding: 20px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .menu-btn:hover { border-color: var(--primary-red); transform: scale(1.05); }
+
+        /* --- Sensi Page --- */
+        #search-bar {
+            width: 80%;
+            max-width: 400px;
+            padding: 12px;
+            margin-bottom: 30px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background: #222;
+            color: white;
+            border: 1px solid var(--neon-green);
+        }
+
+        .sensi-card {
+            background: #151515;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 350px;
+            border-left: 5px solid var(--primary-red);
+        }
+
+        /* --- Floating Support Badge --- */
+        .support-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            background: white;
+            color: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 0 15px white;
+            z-index: 1000;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            color: gray;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .highlight-red { color: var(--primary-red); }
+        .highlight-green { color: var(--neon-green); }
+    </style>
+</head>
+<body>
+
+    <canvas id="snow-canvas"></canvas>
+
+    <div id="home" class="page active">
+        <h1 class="main-title">DUDES WORLD</h1>
+        <div style="height: 600px;"></div> <button class="btn-era" onclick="showPage('era-menu')">TO ERA</button>
+    </div>
+
+    <div id="era-menu" class="page">
+        <div class="menu-grid">
+            <button class="menu-btn" onclick="showPage('page-prompts')">1. PROMPTS</button>
+            <button class="menu-btn" onclick="showPage('page-sensi')">2. SENSI</button>
+            <button class="menu-btn" onclick="showPage('page-paid')">3. P4ID SENSI</button>
+            <button class="menu-btn" onclick="showPage('page-dev')">4. DEVELOPER</button>
+        </div>
+    </div>
+
+    <div id="page-prompts" class="page">
+        <h2 style="font-size: 3rem;"><span style="color:var(--neon-green)">PRO</span>MPTS</h2>
+        <h3 style="color: var(--primary-red); font-size: 2rem;">We are Working On it</h3>
+        <div class="back-btn" onclick="showPage('home')">Back to Main</div>
+    </div>
+
+    <div id="page-sensi" class="page">
+        <h2>MOBILE SENSITIVITY</h2>
+        <input type="text" id="search-bar" placeholder="Search Mobile Edition..." onkeyup="filterSensi()">
+        <div id="sensi-list">
+            <div class="sensi-card" data-model="iphone">
+                <h4>iPhone (All Models)</h4>
+                <p>General: 40 | Red Dot: 50 | Scope: 90</p>
+            </div>
+            <div class="sensi-card" data-model="redmi note 14s">
+                <h4>Redmi Note 14s</h4>
+                <p>General: 95 | Red Dot: 80 | Scope: 75</p>
+            </div>
+            <div class="sensi-card" data-model="samsung s23">
+                <h4>Samsung S23</h4>
+                <p>General: 85 | Red Dot: 70 | Scope: 60</p>
+            </div>
+        </div>
+        <div class="back-btn" onclick="showPage('home')">Back to Main</div>
+    </div>
+
+    <div id="page-paid" class="page">
+        <h2 class="highlight-red">WhatsApp: +91 80895 37427</h2>
+        <p>For Paid Sensi Message To Dude (To This Number) Starting price 399₹</p>
+        <div class="back-btn" onclick="showPage('home')">Back to Main</div>
+    </div>
+
+    <div id="page-dev" class="page">
+        <h1 class="highlight-green">DEVELOPER</h1>
+        <p>Instagram: <span class="highlight-red">@__sinu__si777</span></p>
+        <p>WhatsApp: <span class="highlight-red">+91 80895 37427</span></p>
+        <div class="back-btn" onclick="showPage('home')">Back to Main</div>
+    </div>
+
+    <div id="page-support" class="page">
+        <h2 class="highlight-green">SUPPORT CENTER</h2>
+        <p>For any help or any problems Contact:</p>
+        <p>WhatsApp: +91 80895 37427</p>
+        <p>Instagram: @__sinu__si777</p>
+        <div class="back-btn" onclick="showPage('home')">Back to Main</div>
+    </div>
+
+    <div class="support-badge" onclick="showPage('page-support')">
+        DUDE<br>CARE
+    </div>
+
+    <script>
+        // Navigation Logic
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        // Sensi Search Filter
+        function filterSensi() {
+            let input = document.getElementById('search-bar').value.toLowerCase();
+            let cards = document.querySelectorAll('.sensi-card');
+            cards.forEach(card => {
+                let model = card.getAttribute('data-model');
+                card.style.display = model.includes(input) ? "block" : "none";
+            });
+        }
+
+        // Snowfall Animation
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initSnow() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 3 + 1,
+                    d: Math.random() * 1
+                });
+            }
+        }
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+            ctx.beginPath();
+            for (let p of particles) {
+                ctx.moveTo(p.x, p.y);
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+            }
+            ctx.fill();
+            updateSnow();
+        }
+
+        function updateSnow() {
+            for (let p of particles) {
+                p.y += Math.cos(p.d) + 1 + p.r / 2;
+                if (p.y > canvas.height) {
+                    p.y = -10;
+                    p.x = Math.random() * canvas.width;
+                }
+            }
+        }
+
+        initSnow();
+        setInterval(drawSnow, 30);
+    </script>
+</body>
+</html>
 
