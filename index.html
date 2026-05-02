@@ -8,37 +8,45 @@
     <style>
         :root { --primary: #0095f6; --dark: #000; --card: rgba(28, 28, 30, 0.95); --accent: #ffba08; --form-red: #ff0000; --form-blue: #0000ff; }
         body { font-family: -apple-system, sans-serif; background: var(--dark); color: white; margin: 0; padding: 15px; overflow: hidden; height: 100vh; }
+        
+        /* Snow Animation */
         #snow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
         .flake { position: absolute; top: -10px; color: #fff; animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(105vh); } }
+
+        /* Fade Care Badge */
         .care-badge { position: fixed; top: 10px; right: 10px; background: var(--primary); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; z-index: 100; cursor: pointer; box-shadow: 0 0 10px rgba(0,149,246,0.5); }
+
+        /* Content Styling */
         .header { text-align: center; padding: 30px 0; position: relative; z-index: 10; }
         .header h1 { font-size: 2.2rem; letter-spacing: 4px; text-shadow: 0 0 15px var(--primary); margin: 0; }
-        .main-menu { display: grid; gap: 12px; position: relative; z-index: 10; padding-bottom: 20px; overflow-y: auto; max-height: 70vh; }
+        
+        .main-menu { display: grid; gap: 12px; position: relative; z-index: 10; padding-bottom: 20px; }
         .btn { background: var(--card); border: 1px solid #333; backdrop-filter: blur(10px); color: white; padding: 18px; border-radius: 15px; text-align: left; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .btn:active { transform: scale(0.96); background: var(--primary); }
         .btn-special { border: 1px solid var(--accent); color: var(--accent); text-align: center; font-size: 1.1rem; }
+
+        /* Page Layout */
         .page { display: none; background: var(--card); padding: 20px; border-radius: 20px; z-index: 20; position: relative; height: 85vh; overflow-y: auto; border: 1px solid #444; }
         .back-btn { background: none; border: 1px solid var(--primary); color: var(--primary); padding: 6px 15px; border-radius: 8px; margin-bottom: 15px; cursor: pointer; }
         .copy-box { background: #000; padding: 15px; border-radius: 10px; border: 1px dashed #555; font-size: 0.8rem; color: #ccc; margin: 15px 0; white-space: pre-wrap; }
         .action-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; }
-        .profile-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--primary); margin: 10px auto; display: block; object-fit: cover; }
+        .note { color: var(--accent); font-size: 0.85rem; background: rgba(255, 186, 8, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; }
+
+        /* Forms Screen Theme */
         #pForms { background: linear-gradient(135deg, var(--form-red) 0%, var(--dark) 50%, var(--form-blue) 100%); }
         .form-header { color: white; background: black; display: inline-block; padding: 5px 15px; font-weight: bold; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-<audio id="fahhhSound" preload="auto">
-    <source src="https://raw.githubusercontent.com/Arsh7777/Sound-Effects/main/Fahhh.mp3" type="audio/mpeg">
-</audio>
-
 <div id="snow"></div>
+
 <div class="care-badge" onclick="showP('pCare')">Fade Care</div>
 
 <div id="mainWrapper">
     <div class="header"><h1>FADE RULES</h1></div>
-    <div id="mainMenu" class="main-menu">
+    <div id="mainMenu" class="main-menu" style="overflow-y: auto; max-height: 70vh;">
         <div class="btn" onclick="showP('p1')">01 Meta Verified ❯</div>
         <div class="btn" onclick="showP('p2')">02 Suspended IG ❯</div>
         <div class="btn" onclick="showP('p3')">03 Disabled IG ❯</div>
@@ -48,71 +56,160 @@
     </div>
 </div>
 
-<div id="p1" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Meta Verified</h2><p>• Purchase: Settings > Accounts Center > Meta Verified.</p><p>• ID Proof: Upload Aadhar Card. Ensure name matches.</p></div>
-<div id="p2" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Suspended Unban</h2><div class="copy-box" id="mailTxt">Hello Instagram Support Team...</div><button class="action-btn" onclick="copy('mailTxt')">COPY MAIL TEXT</button></div>
-<div id="p3" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Disabled Unban</h2><p>✅ Your account will unban within 24 hours using Meta Agent method.</p></div>
-<div id="p4" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Face Swap Tool</h2><p>Go to Google: aifaceswap.io</p></div>
-<div id="p5" class="page" style="text-align:center;"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Developer: Lord Fade</h2><img src="me.jpg" class="profile-img"><p>IG: @sabi.creations_</p></div>
+<div id="p1" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Meta Verified</h2>
+    <p>• <b>Purchase:</b> Settings > Accounts Center > Meta Verified.</p>
+    <p>• <b>Offer:</b> Look for the 45₹ offer for 1-2 weeks.</p>
+    <p>• <b>Auto-Pay:</b> Turn OFF in Play Store Subscriptions immediately after buying.</p>
+    <p>• <b>ID Proof:</b> Upload [Aadhar Redacted]. Ensure name matches.</p>
+</div>
+
+<div id="p2" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Suspended Unban</h2>
+    <p>Send mail to: support@instagram.com and appeals@instagram.com</p>
+    <p><b>Subject:</b> Request to Review and Recover My Disabled Instagram Account</p>
+    <div class="copy-box" id="mailTxt">Hello Instagram Support Team,
+My account has been suspended/disabled by mistake. I believe this action was taken incorrectly. I have never violated guidelines. I request a review.
+Username: (account username)
+Email: (Your mail id)
+Regards, (Your name)</div>
+    <button class="action-btn" onclick="copy('mailTxt')">COPY MAIL TEXT</button>
+    <div class="note">Note: Upload [Aadhar Redacted] in appeals. Only for Bypass rule and Bot reason. Unban in 48h.</div>
+</div>
+
+<div id="p3" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Disabled Unban</h2>
+    <p>Use the same email method as Suspended Unban.</p>
+    <p><b>Pro Tip:</b> Use the "Chat with Agent" method in Meta Verified after completing those steps.</p>
+    <div class="note">Note: Do NOT upload proof in the appeal session for this specific method.</div>
+    <p>✅ Your account will unban within 24 hours.</p>
+</div>
+
+<div id="p4" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Face Swap Tool</h2>
+    <p>1. Go to Google: <b>aifaceswap.io</b></p>
+    <p>2. Upload Image and Face.</p>
+    <p>3. Swap and Download.</p>
+</div>
+
+<div id="p5" class="page" style="text-align:center;">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <h2>Developer: Lord Fade</h2>
+    <p>IG: @sabi.creations_</p>
+    <p>IG: @3ld.fx</p>
+</div>
 
 <div id="pForms" class="page">
     <button class="back-btn" onclick="goHome()">❮ Back</button>
     <center><div class="form-header">FADE RULES HERE♨️📈</div></center>
-    <h3>1• Bypass -></h3><div class="copy-box" id="f1">Subject: Appeal Request...</div><button class="action-btn" onclick="copy('f1')">COPY BYPASS FORM</button>
+    
+    <h3>1• Bypass -></h3>
+    <div class="copy-box" id="f1">Subject: Appeal Request for Disabled Instagram Account
+Dear Instagram Support Team,
+I hope this message finds you well.
+I am writing to request a review of my Instagram account, which has recently been disabled/suspended. I believe this action may have been taken in error, as I have always made an effort to follow Instagram’s Community Guidelines and Terms of Use.
+Account Details:
+Username: [your username]
+Registered Email: [your email]
+Phone Number (if linked): [your phone number]
+I do not believe I have violated any policies intentionally. If any of my actions were found to be in violation, I sincerely apologize and assure you it was unintentional. I am committed to following all guidelines moving forward.
+I kindly request that you review my account and reinstate access if possible. This account is very important to me, and I would greatly appreciate your assistance in resolving this matter.
+Please let me know if any additional information or verification is required.
+Thank you for your time and consideration.
+Sincerely, [Your Full Name]</div>
+    <button class="action-btn" onclick="copy('f1')">COPY BYPASS FORM</button>
+
+    <h3>2• Bot Reason -></h3>
+    <div class="copy-box" id="f2">Dear Instagram Support Team,
+I am writing to request a review of my Instagram account, which appears to have been disabled due to suspected use of automation or bot activity.
+Account Details:
+- Username: [your username]
+- Registered Email: [your email]
+- Phone Number (if linked): [your phone number]
+I would like to clarify that I am a real user and I do not intentionally use bots, automation tools, or any third-party services that violate Instagram’s policies. If any unusual activity was detected, it may have been caused by logging in from different devices, using a VPN, or other normal usage patterns.
+I understand Instagram’s responsibility to keep the platform safe and free from spam, and I fully support these efforts. If my account activity was flagged by mistake, I sincerely request a reconsideration.
+I am committed to following all of Instagram’s Community Guidelines and Terms of Use moving forward. Please review my account and let me know if any further verification is required to confirm my identity.
+Thank you for your time and support. I would greatly appreciate your help in restoring my account.
+Sincerely, [Your Full Name]</div>
+    <button class="action-btn" onclick="copy('f2')">COPY BOT FORM</button>
+
+    <h3>3• Adult Reason -></h3>
+    <div class="copy-box" id="f3">Dear Instagram Support Team,
+I am writing to request a review of my Instagram account, which has been disabled due to a possible violation related to adult or sexually explicit content.
+Account Details:
+- Username: [your username]
+- Registered Email: [your email]
+- Phone Number (if linked): [your phone number]
+I understand that Instagram maintains strict policies regarding sensitive and adult content to ensure a safe environment for all users. I respect these guidelines and take them seriously.
+If any of my posts, stories, or interactions were found to be in violation, I sincerely apologize. It was never my intention to share content that goes against Instagram’s Community Guidelines. I may have misunderstood certain boundaries, and I will ensure that all future activity fully complies with your policies.
+I kindly request that you review my account and consider reinstating it. This account is important to me, and I am committed to using the platform responsibly moving forward.
+Please let me know if any additional information or verification is required.
+Thank you for your time and consideration.
+Sincerely, [Your Full Name]</div>
+    <button class="action-btn" onclick="copy('f3')">COPY ADULT FORM</button>
+
+    <h3>4• Copyright -></h3>
+    <div class="copy-box" id="f4">Dear Instagram Support Team,
+I am writing to request a review of my Instagram account, which has been disabled due to a copyright-related issue.
+Account Details:
+- Username: [your username]
+- Registered Email: [your email]
+- Phone Number (if linked): [your phone number]
+I respect intellectual property rights and understand the importance of protecting original content. If any of my posts were found to violate copyright policies, I sincerely apologize, as this was not my intention.
+In some cases, I may have shared content believing it was permitted (such as content with permission, credited material, or publicly available media). If I made an error in understanding or applying these rules, I take full responsibility and will ensure that all future content is either original or properly authorized.
+I kindly request that you review my account and consider reinstating it. I am fully committed to complying with all copyright policies and Community Guidelines going forward.
+Please let me know if any additional information or documentation is required to resolve this matter.
+Thank you for your time and consideration.
+Sincerely, [Your Full Name]</div>
+    <button class="action-btn" onclick="copy('f4')">COPY COPYRIGHT FORM</button>
 </div>
 
-<div id="pCare" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Fade Care</h2><p>Telegram: @Sf4de</p></div>
+<div id="pCare" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <center><h2>Fade Care Support</h2></center>
+    <p>For any problems, please contact us via:</p>
+    <div class="note">
+        <p>📸 <b>Instagram:</b> @sabi.creations_ / @3ld.fx</p>
+        <p>✈️ <b>Telegram:</b> @Sf4de</p>
+        <p>📧 <b>Mail:</b> sabithfade123@gmail.com</p>
+    </div>
+</div>
 
 <script>
-    const webapp = window.Telegram.WebApp;
-    webapp.ready();
-    webapp.expand();
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
 
-    function playFahhh() {
-        const audio = document.getElementById('fahhhSound');
-        
-        // HAPTIC FEEDBACK (Phone will vibrate so you know the button works!)
-        if (webapp.HapticFeedback) {
-            webapp.HapticFeedback.notificationOccurred('success');
-        }
-
-        if(audio) {
-            audio.currentTime = 0;
-            audio.play().catch(e => {
-                // If blocked, we try to play it on the next touch
-                console.log("Audio waiting for user gesture");
-            });
-        }
-    }
-
-    // SNOW EFFECT
     function createFlake() {
         const f = document.createElement('div');
         f.innerHTML = '❄'; f.className = 'flake';
         f.style.left = Math.random() * 100 + 'vw';
         f.style.animationDuration = Math.random() * 3 + 2 + 's';
+        f.style.opacity = Math.random();
+        f.style.fontSize = Math.random() * 10 + 10 + 'px';
         document.getElementById('snow').appendChild(f);
         setTimeout(() => f.remove(), 5000);
     }
-    setInterval(createFlake, 200);
+    setInterval(createFlake, 150);
 
     function showP(id) {
-        playFahhh();
         document.getElementById('mainWrapper').style.display = 'none';
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
     }
 
     function goHome() {
-        playFahhh();
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById('mainWrapper').style.display = 'block';
     }
 
     function copy(id) {
-        playFahhh();
         const text = document.getElementById(id).innerText;
         navigator.clipboard.writeText(text);
-        webapp.showAlert("Form Copied! ♨️");
+        alert("Form Copied! Paste it in your mail.");
     }
 </script>
 </body>
