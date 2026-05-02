@@ -11,10 +11,10 @@
         #snow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
         .flake { position: absolute; top: -10px; color: #fff; animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(105vh); } }
-        .care-badge { position: fixed; top: 10px; right: 10px; background: var(--primary); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; z-index: 100; cursor: pointer; }
+        .care-badge { position: fixed; top: 10px; right: 10px; background: var(--primary); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; z-index: 100; cursor: pointer; box-shadow: 0 0 10px rgba(0,149,246,0.5); }
         .header { text-align: center; padding: 30px 0; position: relative; z-index: 10; }
         .header h1 { font-size: 2.2rem; letter-spacing: 4px; text-shadow: 0 0 15px var(--primary); margin: 0; }
-        .main-menu { display: grid; gap: 12px; position: relative; z-index: 10; padding-bottom: 20px; }
+        .main-menu { display: grid; gap: 12px; position: relative; z-index: 10; padding-bottom: 20px; overflow-y: auto; max-height: 70vh; }
         .btn { background: var(--card); border: 1px solid #333; backdrop-filter: blur(10px); color: white; padding: 18px; border-radius: 15px; text-align: left; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .btn:active { transform: scale(0.96); background: var(--primary); }
         .btn-special { border: 1px solid var(--accent); color: var(--accent); text-align: center; font-size: 1.1rem; }
@@ -24,12 +24,13 @@
         .action-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; }
         .profile-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--primary); margin: 10px auto; display: block; object-fit: cover; }
         #pForms { background: linear-gradient(135deg, var(--form-red) 0%, var(--dark) 50%, var(--form-blue) 100%); }
+        .form-header { color: white; background: black; display: inline-block; padding: 5px 15px; font-weight: bold; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <audio id="fahhhSound" preload="auto">
-    <source src="https://www.myinstants.com/media/sounds/fahh.mp3" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/Arsh7777/Sound-Effects/main/Fahhh.mp3" type="audio/mpeg">
 </audio>
 
 <div id="snow"></div>
@@ -37,7 +38,7 @@
 
 <div id="mainWrapper">
     <div class="header"><h1>FADE RULES</h1></div>
-    <div class="main-menu">
+    <div id="mainMenu" class="main-menu">
         <div class="btn" onclick="showP('p1')">01 Meta Verified ❯</div>
         <div class="btn" onclick="showP('p2')">02 Suspended IG ❯</div>
         <div class="btn" onclick="showP('p3')">03 Disabled IG ❯</div>
@@ -47,13 +48,19 @@
     </div>
 </div>
 
-<div id="p1" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Meta Verified</h2><p>• ID Proof: Upload Aadhar Card.</p></div>
-<div id="p2" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Suspended Unban</h2><div class="copy-box" id="mailTxt">Hello Instagram Support...</div><button class="action-btn" onclick="copy('mailTxt')">COPY MAIL</button></div>
-<div id="p3" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Disabled Unban</h2><p>Account unban in 24h.</p></div>
-<div id="p4" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Face Swap</h2><p>aifaceswap.io</p></div>
-<div id="p5" class="page" style="text-align:center;"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Developer</h2><img src="me.jpg" class="profile-img"><p>@sabi.creations_</p></div>
-<div id="pForms" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><div class="copy-box" id="f1">Form 1...</div><button class="action-btn" onclick="copy('f1')">COPY</button></div>
-<div id="pCare" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Support</h2><p>@Sf4de</p></div>
+<div id="p1" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Meta Verified</h2><p>• Purchase: Settings > Accounts Center > Meta Verified.</p><p>• ID Proof: Upload Aadhar Card. Ensure name matches.</p></div>
+<div id="p2" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Suspended Unban</h2><div class="copy-box" id="mailTxt">Hello Instagram Support Team...</div><button class="action-btn" onclick="copy('mailTxt')">COPY MAIL TEXT</button></div>
+<div id="p3" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Disabled Unban</h2><p>✅ Your account will unban within 24 hours using Meta Agent method.</p></div>
+<div id="p4" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Face Swap Tool</h2><p>Go to Google: aifaceswap.io</p></div>
+<div id="p5" class="page" style="text-align:center;"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Developer: Lord Fade</h2><img src="me.jpg" class="profile-img"><p>IG: @sabi.creations_</p></div>
+
+<div id="pForms" class="page">
+    <button class="back-btn" onclick="goHome()">❮ Back</button>
+    <center><div class="form-header">FADE RULES HERE♨️📈</div></center>
+    <h3>1• Bypass -></h3><div class="copy-box" id="f1">Subject: Appeal Request...</div><button class="action-btn" onclick="copy('f1')">COPY BYPASS FORM</button>
+</div>
+
+<div id="pCare" class="page"><button class="back-btn" onclick="goHome()">❮ Back</button><h2>Fade Care</h2><p>Telegram: @Sf4de</p></div>
 
 <script>
     const webapp = window.Telegram.WebApp;
@@ -63,25 +70,30 @@
     function playFahhh() {
         const audio = document.getElementById('fahhhSound');
         
-        // 1. ADD VIBRATION (So you know it worked even if audio is silent)
+        // HAPTIC FEEDBACK (Phone will vibrate so you know the button works!)
         if (webapp.HapticFeedback) {
-            webapp.HapticFeedback.impactOccurred('medium');
+            webapp.HapticFeedback.notificationOccurred('success');
         }
 
-        // 2. PLAY AUDIO
         if(audio) {
-            audio.pause(); // Stop any current sound
-            audio.currentTime = 0; // Restart
-            
-            // This is the trick for mobile browsers
-            var promise = audio.play();
-            if (promise !== undefined) {
-                promise.catch(error => {
-                    console.log("Audio blocked: Tap screen once first.");
-                });
-            }
+            audio.currentTime = 0;
+            audio.play().catch(e => {
+                // If blocked, we try to play it on the next touch
+                console.log("Audio waiting for user gesture");
+            });
         }
     }
+
+    // SNOW EFFECT
+    function createFlake() {
+        const f = document.createElement('div');
+        f.innerHTML = '❄'; f.className = 'flake';
+        f.style.left = Math.random() * 100 + 'vw';
+        f.style.animationDuration = Math.random() * 3 + 2 + 's';
+        document.getElementById('snow').appendChild(f);
+        setTimeout(() => f.remove(), 5000);
+    }
+    setInterval(createFlake, 200);
 
     function showP(id) {
         playFahhh();
@@ -102,17 +114,6 @@
         navigator.clipboard.writeText(text);
         webapp.showAlert("Form Copied! ♨️");
     }
-
-    // SNOW CODE
-    function createFlake() {
-        const f = document.createElement('div');
-        f.innerHTML = '❄'; f.className = 'flake';
-        f.style.left = Math.random() * 100 + 'vw';
-        f.style.animationDuration = Math.random() * 3 + 2 + 's';
-        document.getElementById('snow').appendChild(f);
-        setTimeout(() => f.remove(), 5000);
-    }
-    setInterval(createFlake, 200);
 </script>
 </body>
 </html>
