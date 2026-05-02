@@ -38,7 +38,8 @@
         .form-header { color: white; background: black; display: inline-block; padding: 5px 15px; font-weight: bold; margin-bottom: 20px; }
     </style>
 </head>
-<body>
+<body><audio id="fahhhSound" src="https://files.catbox.moe/5msc38.mp3" preload="auto"></audio>
+
 
 <div id="snow"></div>
 
@@ -99,8 +100,11 @@ Regards, (Your name)</div>
 <div id="p5" class="page" style="text-align:center;">
     <button class="back-btn" onclick="goHome()">❮ Back</button>
     <h2>Developer: Lord Fade</h2>
+    <img src="me.jpg" alt="Lord Fade" class="profile-img">
     <p>IG: @sabi.creations_</p>
     <p>IG: @3ld.fx</p>
+</div>
+
 </div>
 
 <div id="pForms" class="page">
@@ -195,17 +199,24 @@ Sincerely, [Your Full Name]</div>
     }
     setInterval(createFlake, 150);
 
+        function playFahhh() {
+        const audio = document.getElementById('fahhhSound');
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play().catch(e => console.log("Audio blocked"));
+        }
+    }
     function showP(id) {
+        playFahhh(); // <--- This plays the sound
         document.getElementById('mainWrapper').style.display = 'none';
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
     }
-
     function goHome() {
+        playFahhh(); // <--- This plays the sound
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById('mainWrapper').style.display = 'block';
     }
-
     function copy(id) {
         const text = document.getElementById(id).innerText;
         navigator.clipboard.writeText(text);
